@@ -1,2 +1,5 @@
 # .env variables
 .env
+
+# Auto-generated files
+__pycache__/

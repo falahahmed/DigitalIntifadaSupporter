@@ -1,5 +1,6 @@
 import dotenv
 import os
 
-vars = dotenv.load_dotenv(dotenv_path=".env")
+path = dotenv.find_dotenv()
+dotenv.load_dotenv(dotenv_path=path)
 API_KEY = os.environ.get("API_KEY")
