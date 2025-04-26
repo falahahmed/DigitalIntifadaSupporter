@@ -3,3 +3,9 @@ __pycache__/*
 
 # .env variables
 .env
+
+# Personal assesments
+todo.json
+
+# User sensitive data
+subscribers.json
