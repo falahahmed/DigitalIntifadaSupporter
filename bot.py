@@ -1,13 +1,14 @@
 # Module imports
 from constants import API_KEY
 from handlers.command import start
+from handlers.joinRequest import join_request
 
 # Standard library imports
 import logging
 
 # ptb imports
 from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, ChatJoinRequestHandler
 
 
 # Configure logging
@@ -30,6 +31,9 @@ def main():
 
     # Command Handlers
     bot.add_handler(CommandHandler("start", start))
+
+    # Join request handler
+    bot.add_handler(ChatJoinRequestHandler(join_request))
 
     # Starting the bot
     bot.run_polling()
