@@ -3,8 +3,16 @@ from telegram import Update, User
 from telegram.ext import ContextTypes
 from telegram.constants import ParseMode
 
+from constants import CHAT_ID
+
 # Join request handler function
 async def join_request(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+
+    # Check if the Chat is the correct one
+    chat_id = str(update.effective_chat.id)
+    if chat_id != CHAT_ID:
+        return
+
     # Send message to user before approving the join request
     # Get the text to send to user
     message = formatMessage(update.effective_user.first_name)
