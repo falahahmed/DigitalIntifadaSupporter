@@ -22,7 +22,7 @@ def formatMessage(name: str) -> str:
     msg = ""
     msg += f"Assalamu Alaikkum {name},\n"
     msg += "Welcome to the Digital Intifada!\n"
-    msg += "We slowly but firmly started our project. We would like to know more about you and the "
+    msg += "We have slowly but firmly started our project. We would like to know more about you and the "
     msg += "fields you can contribute in. "
     msg += "Please click <a href='https://t.me/DigitalIntifadaBot?start=INIT'>here</a> to get the form.\n"
     msg += "<b>Thank  you and May Allah bless you.</b>\n"

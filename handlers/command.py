@@ -7,7 +7,7 @@ from services.users import registerUser
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     mode = update.message.text[7:]
     if mode == 'INIT':
-        start_init(update, context.bot)
+        await start_init(update, context.bot)
         
 
 # Initial start handler
