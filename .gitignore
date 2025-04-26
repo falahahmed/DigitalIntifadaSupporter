@@ -10,4 +10,4 @@ __pycache__/*
 todo.json
 
 # User sensitive data
-subscribers.json
+users.json
