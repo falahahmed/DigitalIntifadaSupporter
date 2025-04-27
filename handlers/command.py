@@ -17,8 +17,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def clean(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = str(update.effective_user.id)
-    print(user)
-    print(ADMINS)
     if user not in ADMINS:
         await update.message.reply_text("You are not authorized to use this command")
         return
