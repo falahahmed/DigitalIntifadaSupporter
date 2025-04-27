@@ -11,7 +11,7 @@ def registerUser(user: User) -> None:
         "id": user.id,
         "name": user.full_name,
         "username": user.username,
-        "isSub": True
+        "subscribed": True,
     }
     data.append(new_data)
     with open('users.json', 'w') as file:

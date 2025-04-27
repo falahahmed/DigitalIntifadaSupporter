@@ -1,6 +1,6 @@
 # Module imports
 from constants import API_KEY
-from handlers.command import start
+from handlers.command import start, clean
 from handlers.joinRequest import join_request
 
 # Standard library imports
@@ -8,7 +8,11 @@ import logging
 
 # ptb imports
 from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, ChatJoinRequestHandler
+from telegram.ext import (
+    ApplicationBuilder, 
+    CommandHandler, 
+    ChatJoinRequestHandler
+)
 
 
 # Configure logging
@@ -31,6 +35,7 @@ def main():
 
     # Command Handlers
     bot.add_handler(CommandHandler("start", start))
+    bot.add_handler(CommandHandler("clean", clean))
 
     # Join request handler
     bot.add_handler(ChatJoinRequestHandler(join_request))
