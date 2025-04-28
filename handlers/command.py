@@ -3,10 +3,14 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ContextTypes, ExtBot
 from handlers.branch.start import start_init
 from services.users import registerUser
+from services.telegram import checkCommandProceed
 from constants import ADMINS
 
 # Main start command handler function
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    canProceed = await checkCommandProceed(update, context)
+    if not canProceed:
+        return
     mode = update.message.text[7:]
     if mode == '':
         await update.message.reply_text("May Allah bless you")
@@ -16,6 +20,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         
 
 async def clean(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    canProceed = await checkCommandProceed(update, context)
+    if not canProceed:
+        return
     user = str(update.effective_user.id)
     if user not in ADMINS:
         await update.message.reply_text("You are not authorized to use this command")

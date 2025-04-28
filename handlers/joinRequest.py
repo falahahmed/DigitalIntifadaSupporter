@@ -3,7 +3,7 @@ from telegram import Update, User
 from telegram.ext import ContextTypes
 from telegram.constants import ParseMode
 
-from constants import CHAT_ID
+from constants import CHAT_ID, BOT
 
 # Join request handler function
 async def join_request(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -32,7 +32,7 @@ def formatMessage(name: str) -> str:
     msg += "Welcome to the Digital Intifada!\n"
     msg += "We have slowly but firmly started our project. We would like to know more about you and the "
     msg += "fields you can contribute in. "
-    msg += "Please click <a href='https://t.me/DigitalIntifadaBot?start=INIT'>here</a> to get the form.\n"
+    msg += f"Please click <a href='https://t.me/{BOT}?start=INIT'>here</a> to get the form.\n"
     msg += "<b>Thank  you and May Allah bless you.</b>\n"
 
     return msg

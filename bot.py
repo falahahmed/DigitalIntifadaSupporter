@@ -10,10 +10,14 @@ import logging
 from telegram import Update
 from telegram.ext import (
     ApplicationBuilder, 
-    CommandHandler, 
-    ChatJoinRequestHandler
+    CommandHandler,
+    ChatJoinRequestHandler,
+    filters,
 )
 
+
+# Setting the default filter for commands - personal chat
+privateChat = filters.ChatType.PRIVATE
 
 # Configure logging
 logging.basicConfig(

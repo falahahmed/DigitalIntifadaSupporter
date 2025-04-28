@@ -9,3 +9,5 @@ API_KEY = os.environ.get("API_KEY")
 CHAT_ID = os.environ.get("CHAT_ID")
 
 ADMINS:list = os.environ.get("ADMINS")
+
+BOT = os.environ.get("BOT")
