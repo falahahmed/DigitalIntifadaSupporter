@@ -38,4 +38,4 @@ async def clean(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ]
     # Markup and reply
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.message.reply_text("What should I clean?", reply_markup=reply_markup)
+    await update.message.reply_text("We are working on it")
