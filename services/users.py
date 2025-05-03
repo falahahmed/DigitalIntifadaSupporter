@@ -11,12 +11,16 @@ supabase: Client = create_client(SB_URL, SB_KEY)
 # Function to register a new user
 def registerUser(user: User) -> None:
     # get data from supabase
-    data, count = (supabase.table("users").select("id").execute())
-    data = data[1]
-    count = count[1]
+    response = supabase.table("users").select("id").execute()
+    data = response.data
+    count = response.count
+
+    # ids in the supabase
     ids = []
     for ur in data:
         ids.append(ur['id'])
+
+    #  add user to supabase if not already present
     if user.id not in ids:
         supabase.table("users").insert({
             "id": user.id,
@@ -25,17 +29,5 @@ def registerUser(user: User) -> None:
             "subscribed": True,
         }).execute()
     else:
+        # user already exists in supabase
         print("User already exists in supabase")
-    data = {}
-    with open('users.json', 'r') as file:
-        data = list(json.load(file))
-    new_data = {
-        "id": user.id,
-        "name": user.full_name,
-        "username": user.username,
-        "subscribed": True,
-    }
-    data.append(new_data)
-    with open('users.json', 'w') as file:
-        json.dump(data, file, indent=4)
-
