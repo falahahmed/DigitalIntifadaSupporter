@@ -2,6 +2,7 @@
 from constants import API_KEY
 from handlers.command import start, clean
 from handlers.joinRequest import join_request
+from handlers.callback.query import callbackQueries
 
 # Standard library imports
 import logging
@@ -12,6 +13,7 @@ from telegram.ext import (
     ApplicationBuilder, 
     CommandHandler,
     ChatJoinRequestHandler,
+    CallbackQueryHandler,
     filters,
 )
 
@@ -40,6 +42,9 @@ def main():
     # Command Handlers
     bot.add_handler(CommandHandler("start", start))
     bot.add_handler(CommandHandler("clean", clean))
+
+    # Callback Query Handlers
+    bot.add_handler(CallbackQueryHandler(callbackQueries))
 
     # Join request handler
     bot.add_handler(ChatJoinRequestHandler(join_request))

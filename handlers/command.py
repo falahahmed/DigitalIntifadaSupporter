@@ -19,16 +19,23 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await start_init(update, context.bot)
         
 
+# Function to clean the data related to users, etc.
 async def clean(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # Check if the command can proceed - type of chat
     canProceed = await checkCommandProceed(update, context)
     if not canProceed:
         return
+    
+    # Check if the user is an admin
     user = str(update.effective_user.id)
     if user not in ADMINS:
         await update.message.reply_text("You are not authorized to use this command")
         return
+    
+    # Options to clean
     keyboard = [
         [InlineKeyboardButton("Duplicates in users data", callback_data="users")],
     ]
+    # Markup and reply
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text("What should I clean?", reply_markup=reply_markup)
