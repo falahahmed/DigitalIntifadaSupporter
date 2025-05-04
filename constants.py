@@ -15,3 +15,5 @@ BOT = os.environ.get("BOT")
 SB_URL = os.environ.get("SB_URL")
 
 SB_KEY = os.environ.get("SB_KEY")
+
+LOGS = os.environ.get("LOGS")

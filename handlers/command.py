@@ -14,7 +14,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     mode = update.message.text[7:]
     if mode == '':
         await update.message.reply_text("May Allah bless you")
-        registerUser(update.effective_user)
+        await registerUser(update.effective_user, context.bot)
     elif mode == 'INIT':
         await start_init(update, context.bot)
         

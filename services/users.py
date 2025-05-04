@@ -1,15 +1,16 @@
 # imports
 from telegram import User
-import json
+from telegram.constants import ParseMode
+from telegram.ext import ExtBot
 from supabase import Client, create_client
-from constants import SB_KEY, SB_URL
+from constants import SB_KEY, SB_URL, LOGS
 
 # Initialize Supabase client
 supabase: Client = create_client(SB_URL, SB_KEY)
 
 
 # Function to register a new user
-def registerUser(user: User) -> None:
+async def registerUser(user: User, bot:ExtBot) -> None:
     # get data from supabase
     response = supabase.table("users").select("id").execute()
     data = response.data
@@ -28,6 +29,13 @@ def registerUser(user: User) -> None:
             "username": user.username,
             "subscribed": True,
         }).execute()
+        if LOGS != None:
+            await bot.send_message(
+                LOGS, 
+                f"User <a href='t.me/{user.username}'>{user.full_name}</a> has subscribed to the bot",
+                parse_mode=ParseMode.HTML,
+                disable_web_page_preview=True,
+            )
     else:
         # user already exists in supabase
         print("User already exists in supabase")
