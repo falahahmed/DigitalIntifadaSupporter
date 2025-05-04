@@ -4,19 +4,25 @@ from telegram.ext import ContextTypes, ExtBot
 from handlers.branch.start import start_init
 from services.users import registerUser
 from services.telegram import checkCommandProceed
-from constants import ADMINS
+from constants import ADMINS, OWNER
 
 # Main start command handler function
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    canProceed = await checkCommandProceed(update, context)
-    if not canProceed:
-        return
-    mode = update.message.text[7:]
-    if mode == '':
-        await update.message.reply_text("May Allah bless you")
-        await registerUser(update.effective_user, context.bot)
-    elif mode == 'INIT':
-        await start_init(update, context.bot)
+    try:
+        canProceed = await checkCommandProceed(update, context)
+        if not canProceed:
+            return
+        mode = update.message.text[7:]
+        if mode == '':
+            await update.message.reply_text("May Allah bless you")
+            await registerUser(update.effective_user, context.bot)
+        elif mode == 'INIT':
+            await start_init(update, context.bot)
+    except Exception as e:
+        await context.bot.send_message(
+            OWNER, 
+            f"Error occured:{e}\nUser: {update.effective_user.id}\nName: {update.effective_user.first_name}\nUsername: {update.effective_user.username}",
+        )
         
 
 # Function to clean the data related to users, etc.
