@@ -32,7 +32,7 @@ async def registerUser(user: User, bot:ExtBot) -> None:
         if LOGS != None:
             message = f"User <a href='t.me/{user.username}'>{user.full_name}</a> has subscribed to the bot"
             if user.username!= None:
-                f"User {user.full_name} has subscribed to the bot (id: {user.id})",
+                message = f"User {user.full_name} has subscribed to the bot (id: {user.id})",
                     
             await bot.send_message(
                 LOGS, 
