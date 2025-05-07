@@ -1,7 +1,7 @@
 # imports
-from telegram import Update
-from telegram.ext import ContextTypes
-from constants import BOT
+from telegram import Update, User
+from telegram.ext import ContextTypes, ExtBot
+from constants import BOT, OWNER
 
 # Function to check if the command can proceed
 async def checkCommandProceed(update: Update, context: ContextTypes.DEFAULT_TYPE) -> bool:
@@ -28,3 +28,10 @@ async def checkCommandProceed(update: Update, context: ContextTypes.DEFAULT_TYPE
         await update.message.delete()
         # returning false - don't interact with it
         return False
+    
+
+async def reportError(bot: ExtBot, error: Exception, user: User) -> None:
+    await bot.send_message(
+        OWNER,
+        f"Error occured:{error}\nUser: {user.id}\nName: {user.first_name}\nUsername: {user.username}",
+    )

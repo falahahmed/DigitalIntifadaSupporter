@@ -1,6 +1,6 @@
 # Module imports
 from constants import API_KEY
-from handlers.command import start, clean
+from handlers.command import start, clean, delete
 from handlers.joinRequest import join_request
 from handlers.callback.query import callbackQueries
 
@@ -42,6 +42,7 @@ def main():
     # Command Handlers
     bot.add_handler(CommandHandler("start", start))
     bot.add_handler(CommandHandler("clean", clean))
+    bot.add_handler(CommandHandler("del", delete))
 
     # Callback Query Handlers
     bot.add_handler(CallbackQueryHandler(callbackQueries))

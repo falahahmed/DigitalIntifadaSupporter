@@ -3,7 +3,7 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ContextTypes, ExtBot
 from handlers.branch.start import start_init
 from services.users import registerUser
-from services.telegram import checkCommandProceed
+from services.telegram import checkCommandProceed, reportError
 from constants import ADMINS, OWNER
 
 # Main start command handler function
@@ -19,11 +19,44 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         elif mode == 'INIT':
             await start_init(update, context.bot)
     except Exception as e:
-        await context.bot.send_message(
-            OWNER, 
-            f"Error occured:{e}\nUser: {update.effective_user.id}\nName: {update.effective_user.first_name}\nUsername: {update.effective_user.username}",
-        )
+        await reportError(context.bot, e, update.effective_user)
         
+# Command to delete messages
+async def delete(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    # try and if exception occurs, report it to owner
+    try:
+        # user's id
+        user_id = update.effective_user.id
+        if str(user_id) not in ADMINS:
+            # delete the message if user is not an admin
+            await update.message.delete()
+            return
+        length = len(context.args)
+        if length == 0:
+            # delete the message if no arguments are provided
+            await update.message.delete()
+            return
+        if length > 2:
+            # delete the message if more than 2 arguments are provided
+            await update.message.delete()
+            return
+        intArgs = []
+        for arg in context.args:
+            try:
+                intArgs.append(int(arg))
+            except ValueError:
+                # delete the message if argument is not an integer
+                await update.message.delete()
+                return
+        startid = update.message.id  if len(intArgs) == 1 else update.message.id - intArgs[1]
+        await update.message.delete()
+        ids = range(startid - intArgs[0], startid)
+        await context.bot.delete_messages(
+            update.effective_chat.id,
+            ids,
+        )
+    except Exception as e:
+        await reportError(context.bot, e, update.effective_user)
 
 # Function to clean the data related to users, etc.
 async def clean(update: Update, context: ContextTypes.DEFAULT_TYPE):
