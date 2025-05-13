@@ -37,7 +37,7 @@ logger = logging.getLogger(__name__)
 
 # Main function to handle application startup
 def main():
-    # Creating a bot instance
+    # Creating a bot instance 
     bot = ApplicationBuilder().token(API_KEY).build()
 
     # Command Handlers
