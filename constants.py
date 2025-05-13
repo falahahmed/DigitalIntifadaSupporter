@@ -4,18 +4,18 @@ import os
 path = dotenv.find_dotenv()
 dotenv.load_dotenv(dotenv_path=path)
 
-API_KEY = os.environ.get("API_KEY")
+API_KEY = os.getenv("API_KEY").replace("\\x3a", ":").replace("\\x2f", "/")
 
-CHAT_ID = os.environ.get("CHAT_ID")
+CHAT_ID = os.getenv("CHAT_ID").replace("\\x3a", ":").replace("\\x2f", "/")
 
-ADMINS:list = os.environ.get("ADMINS")
+ADMINS:list = os.getenv("ADMINS").replace("\\x3a", ":").replace("\\x2f", "/")
 
-BOT = os.environ.get("BOT")
+BOT = os.getenv("BOT").replace("\\x3a", ":").replace("\\x2f", "/")
 
-SB_URL = os.environ.get("SB_URL")
+SB_URL = os.getenv("SB_URL").replace("\\x3a", ":").replace("\\x2f", "/")
 
-SB_KEY = os.environ.get("SB_KEY")
+SB_KEY = os.getenv("SB_KEY").replace("\\x3a", ":").replace("\\x2f", "/")
 
-LOGS = os.environ.get("LOGS")
+LOGS = os.getenv("LOGS").replace("\\x3a", ":").replace("\\x2f", "/")
 
-OWNER = os.environ.get("OWNER")
+OWNER = os.getenv("OWNER").replace("\\x3a", ":").replace("\\x2f", "/")
