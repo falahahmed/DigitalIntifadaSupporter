@@ -51,6 +51,7 @@ def main():
     # Conversation handler definition
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler("start", start, filters=filters.Regex("SURVEY"))],
+        states={},
         fallbacks=[CommandHandler("cancel", cancel)],
     )
 
