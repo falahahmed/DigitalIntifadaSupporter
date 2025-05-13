@@ -1,6 +1,6 @@
 # Module imports
 from constants import API_KEY
-from handlers.command import start, clean, delete
+from handlers.command import start, clean, delete, cancel
 from handlers.joinRequest import join_request
 from handlers.callback.query import callbackQueries
 
@@ -14,6 +14,7 @@ from telegram.ext import (
     CommandHandler,
     ChatJoinRequestHandler,
     CallbackQueryHandler,
+    ConversationHandler,
     filters,
 )
 
@@ -46,6 +47,15 @@ def main():
 
     # Callback Query Handlers
     bot.add_handler(CallbackQueryHandler(callbackQueries))
+
+    # Conversation handler definition
+    conv_handler = ConversationHandler(
+        entry_points=[CommandHandler("start", start, filters=filters.Regex("SURVEY"))],
+        fallbacks=[CommandHandler("cancel", cancel)],
+    )
+
+    # Conversation Handler
+    bot.add_handler(conv_handler)
 
     # Join request handler
     bot.add_handler(ChatJoinRequestHandler(join_request))

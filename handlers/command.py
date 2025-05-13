@@ -1,6 +1,6 @@
 # Imports
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import ContextTypes, ExtBot
+from telegram.ext import ContextTypes, ExtBot, ConversationHandler
 from handlers.branch.start import start_init
 from services.users import registerUser
 from services.telegram import checkCommandProceed, reportError
@@ -12,7 +12,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         canProceed = await checkCommandProceed(update, context)
         if not canProceed:
             return
-        mode = update.message.text[7:]
+        mode = context.args[0] if context.args else ''
         if mode == '':
             await update.message.reply_text("May Allah bless you")
             await registerUser(update.effective_user, context.bot)
@@ -78,3 +78,7 @@ async def clean(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Markup and reply
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text("We are working on it")
+
+async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("Cancelled")
+    return ConversationHandler.END

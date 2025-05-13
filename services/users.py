@@ -6,7 +6,9 @@ from supabase import Client, create_client
 from constants import SB_KEY, SB_URL, LOGS
 
 # Initialize Supabase client
-supabase: Client = create_client(SB_URL, SB_KEY)
+print(SB_URL)
+print(SB_KEY)
+supabase: Client = create_client('https://izlxctepygvehjmfkvkh.supabase.co', SB_KEY)
 
 
 # Function to register a new user
