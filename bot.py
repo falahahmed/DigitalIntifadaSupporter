@@ -20,6 +20,8 @@ from handlers.conversation.survey import (
     get_count, 
     get_un_name,
     get_question,
+    get_type,
+    get_options
 )
 from handlers.joinRequest import join_request
 from handlers.callback.query import callbackQueries
@@ -85,6 +87,8 @@ newsurvey_handler = ConversationHandler(
         GET_NAME : [MessageHandler(filters.TEXT & ~filters.COMMAND, get_un_name)],
         GET_COUNT : [MessageHandler(filters.TEXT & ~filters.COMMAND, get_count)],
         GET_QUESTION : [MessageHandler(filters.TEXT & ~filters.COMMAND, get_question)],
+        GET_TYPE : [MessageHandler(filters.Regex("^(Yes or No|Options|Text)$"), get_type)],
+        GET_OPTIONS : [MessageHandler(filters.TEXT & ~filters.COMMAND, get_options)],
     },
     fallbacks=[
         CommandHandler("cancel", cancel),
