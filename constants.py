@@ -19,3 +19,8 @@ SB_KEY = os.getenv("SB_KEY").replace("\\x3a", ":").replace("\\x2f", "/")
 LOGS = os.getenv("LOGS").replace("\\x3a", ":").replace("\\x2f", "/")
 
 OWNER = os.getenv("OWNER").replace("\\x3a", ":").replace("\\x2f", "/")
+
+
+
+# survey related constants
+GET_COUNT, GET_QUESTION, GET_TYPE, GET_OPTIONS, GET_NAME, SURVEY_ERROR = range(6)

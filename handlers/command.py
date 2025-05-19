@@ -4,7 +4,15 @@ from telegram.ext import ContextTypes, ExtBot, ConversationHandler
 from handlers.branch.start import start_init
 from services.users import registerUser
 from services.telegram import checkCommandProceed, reportError
-from constants import ADMINS, OWNER
+from constants import (
+    ADMINS, 
+    OWNER,
+
+    GET_NAME,
+    GET_OPTIONS,
+    GET_QUESTION,
+    GET_TYPE,
+)
 
 # Main start command handler function
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -82,3 +90,18 @@ async def clean(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Cancelled")
     return ConversationHandler.END
+
+async def newsurvey(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # Check if the command can proceed - type of chat
+    canProceed = await checkCommandProceed(update, context)
+    if not canProceed:
+        return ConversationHandler.END
+    
+    # Check if the user is an admin
+    user = str(update.effective_user.id)
+    if user not in ADMINS:
+        await update.message.reply_text("You are not authorized to use this command")
+        return ConversationHandler.END
+    
+    await update.message.reply_text("Please provide a name for the survey (should be unique)")
+    return GET_NAME
